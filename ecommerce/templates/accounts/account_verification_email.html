@@ -1,0 +1,9 @@
+{% autoescape off %} {% comment %} Esto es por tema de seguridad, para evitar cross site scripting {% endcomment %}
+
+Hola {{ user.firts_name}},
+
+Por favor activa tu cuenta dandole click al siguiente link:
+
+http://{{domain}}{% url 'activate' uidb64=uid token=token %} {% comment %} este path apunta a la URL **activate* (la cual debo crear) y tiene dos parametros "uid64=uid" y "token = token" {% endcomment %}
+
+{% endautoescape %}
