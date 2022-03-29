@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'myapps.accounts',
     'myapps.store',
     'myapps.carts',
+    'myapps.orders',
 ]
 
 INSTALLED_APPS += ('naomi',)

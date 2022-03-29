@@ -20,7 +20,7 @@
 
             <div class="card-body">
                 <h4 class="cart-tittle mb-4">Dirección de facturación</h4>
-                <form action="" method='POST'>
+                <form action="{% url 'place_order' %}" method='POST'>
                     {% csrf_token %}
 
                     <div class="form-row">
@@ -44,7 +44,7 @@
 
                         <div class="col form-group">
                             <label for="">Teléfono</label>
-                            <input type="text" name="phone_number" class="form-control">
+                            <input type="text" name="phone" class="form-control">
                         </div>
                     </div>
 
@@ -56,7 +56,7 @@
 
                         <div class="col form-group">
                             <label for="">Detalles Dirección</label>
-                            <input type="text" name="address_line_1" class="form-control">
+                            <input type="text" name="address_line_2" class="form-control">
                         </div>
                     </div>
 
@@ -67,17 +67,17 @@
                         </div>
 
                         <div class="col form-group">
-                            <label for="">Departamento</label>
+                            <label for="">Estado</label>
                             <input type="text" name="state" class="form-control">
                         </div>
                         <div class="col form-group">
                             <label for="">País</label>
-                            <input type="text" name="state" class="form-control">
+                            <input type="text" name="country" class="form-control">
                         </div>
                     </div>
                     <div class="form-row">
                         <label for="">Descripción de la orden</label>
-                        <textarea class="form-control" name="orden_note" id=""  rows="2"></textarea>
+                        <textarea class="form-control" name="order_note" id=""  rows="2"></textarea>
                     </div>
 
 

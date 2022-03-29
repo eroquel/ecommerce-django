@@ -1,0 +1,82 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block content %}
+
+<section class="section-content padding-y bg">
+  <div class="container">
+    <!-- ============================ COMPONENT 1 ================================= -->
+
+    {% comment %} {% for item in my_object %}
+      <p>{{ item }}</p>
+     {% endfor %} {% endcomment %}
+    
+
+    <div class="row">
+      <aside class="col-lg-8">
+        <div class="card">
+            <h5 class="card-header">Dirección de Facturación</h5>
+            <div class="card-body">
+                <p class="cart-text">Esta es la dirección de facturación</p>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <h5 class="card-header">Método de pago</h5>
+            <div class="card-body">
+                <p class="cart-text">Este es el método de pago</p>
+            </div>
+        </div>
+        <div class="card">
+            <h5 class="card-header">Revisiónd de productos</h5>
+            <div class="card-body">
+                <p class="cart-text">Productos a comprar</p>
+            </div>
+        </div>
+        <!-- card.// -->
+      </aside>
+      <!-- col.// -->
+      <aside class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <dl class="dlist-align">
+              <dt>Precio Total:</dt>
+              <dd class="text-right">${{ total }}</dd>
+            </dl>
+            <dl class="dlist-align">
+              <dt>Impuestos:</dt>
+              <dd class="text-right">${{ tax }}</dd>
+            </dl>
+            <dl class="dlist-align">
+              <dt>Total:</dt>
+              <dd class="text-right text-dark b">
+                <strong>${{ grand_total }}</strong>
+              </dd>
+            </dl>
+            <hr />
+            <p class="text-center mb-3">
+              <img src="{% static 'images/misc/payments.png' %}" height="26" />
+            </p>
+            <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">
+              Confirmar Pago
+            </a>
+
+          </div>
+          <!-- card-body.// -->
+        </div>
+        <!-- card.// -->
+      </aside>
+      <!-- col.// -->
+    </div>
+    <!-- row.// -->
+
+
+
+    <!-- ============================ COMPONENT 1 END .// ================================= -->
+  </div>
+  <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock %}
