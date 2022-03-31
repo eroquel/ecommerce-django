@@ -11,7 +11,7 @@ class Payment(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE) #Esto crea una referencia entre la tabla Payment y Account y si elimino una cuenta, es decir un usuario, se eliminará el payment.
     payment_id = models.CharField(max_length=100)
     payment_method = models.CharField(max_length=100)
-    amount_id = models.CharField(max_length=100)
+    amount_paid = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     creat_at = models.DateTimeField(auto_now_add=True)
 

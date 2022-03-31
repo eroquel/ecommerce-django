@@ -15,7 +15,7 @@ def payments(request):
         user = request.user, #accedo al usuario acutal
         payment_id = body['transID'],
         payment_method = body['payment_method'],
-        amount_id = order.order_total,
+        amount_paid = order.order_total,
         status = body['status']
     )
     payment.save() #aquí hago el registro en la base de datos
