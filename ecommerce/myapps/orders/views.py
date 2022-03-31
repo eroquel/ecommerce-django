@@ -2,12 +2,32 @@ import datetime
 from django.shortcuts import redirect, render
 from ..carts.models import CartItem
 from .forms import OrderForm
-from .models import Order
+from .models import Order, Payment
+import json
 
 # Create your views here.
 
 def payments(request):
+    body = json.loads(request.body) #Aquí lo que recibo es un Json por POST. **json.loads()** me permite recibir e interpretar el Json para poder usarlo.
+    order = Order.objects.get(user=request.user, is_ordered=False, order_number = body['orderID']) # aquí obtengo el **Order** exacto que corresponde al registro Payment que voy a crear. Nota orderID en realidad es **order.order_number**
+
+    payment = Payment(
+        user = request.user, #accedo al usuario acutal
+        payment_id = body['transID'],
+        payment_method = body['payment_method'],
+        amount_id = order.order_total,
+        status = body['status']
+    )
+    payment.save() #aquí hago el registro en la base de datos
+
+    order.payment = payment #Aquí hago la vinculación entre Order y Payment, recordando que order tiene un atributo el cual es una llave foránea de Payment.
+    order.is_ordered = True #cambio el estado de la orden que antes era False y ahora es True, para indicar que la orden fue realizada
+    order.save()
+
     return render(request, 'orders/payments.html')
+    
+
+
 
 def place_order(request, total = 0, quantity = 0):
     current_user = request.user
@@ -58,15 +78,27 @@ def place_order(request, total = 0, quantity = 0):
             current_date_row= datetime.date(current_year, current_month, current_day) #aqui genero la fecha actual, pero esta se crea con el slash "/": 2022/03/27
             current_date = current_date_row.strftime("%Y%m%d") #Quí le quito el "/", este es el formato final: 20220327
             '''
-            #el valor id de una tabla/entidad se optiene unicamente luego despues de crear el record/registro en la base de datos, por esa razone sta utimas lineas de
-            codigos se crearon luego del **data.save** así, se crea el record, por tanto el id y de esta manera accedo al id para concatenarlos con la fecha y
-            crear el numero de orden. Al tener el numero de ordern precedo a hacer el registro de deste en la tabla. Ojo  **data** es la entidad/tabla/orden con la que estoy trabajando
+            #el valor id de una tabla/entidad se obtiene únicamente luego después de crear el record/registro en la base de datos, por esa razone esta últimas líneas de
+            códigos se crearon luego del **data.save** así, se crea el record, por tanto el id y de esta manera accedo al id para concatenarlos con la fecha y
+            crear el numero de orden. Al tener el número de orden precedo a hacer el registro de deste en la tabla. Ojo  **data** es la entidad/tabla/orden con la que estoy trabajando
             '''
             order_number = current_date + str(data.id) 
             data.order_number = order_number
             data.save()
-            return redirect('checkout')
+
+            order = Order.objects.get(user=current_user, is_ordered=False, order_number = order_number)
+            context = {
+                'order': order,
+                'cart_items': cart_items,
+                'total': total,
+                'tax': tax,
+                'grand_total': grant_total,
+            }
+
+            return render(request,'orders/payments.html', context)
+
         else:
             print('******************problema con el form*********************')
     else:
         return redirect('checkout')
+

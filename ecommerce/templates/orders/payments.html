@@ -17,21 +17,98 @@
         <div class="card">
             <h5 class="card-header">Dirección de Facturación</h5>
             <div class="card-body">
-                <p class="cart-text">Esta es la dirección de facturación</p>
+                <p class="card-text mb-0">{{ order.full_name }}</p>
+                <p class="card-text mb-0">{{ order.full_address }}</p>
+                <p class="card-text mb-0">{{ order.city }}, {{ order.state }}</p>
+                <p class="card-text mb-0">{{ order.country }}</p>
+                <p class="card-text mb-0">{{ order.email }}</p>
+                <p class="card-text mb-0">{{ order.phone }}</p>
+                {% if order.order_note %}
+                  <b>Detalle de la orden:</b> {{ order.order_note}}
+                {% endif %}
             </div>
         </div>
-
 
         <div class="card">
             <h5 class="card-header">Método de pago</h5>
             <div class="card-body">
-                <p class="cart-text">Este es el método de pago</p>
+                <p class="cart-text">Paypal</p>
             </div>
         </div>
         <div class="card">
-            <h5 class="card-header">Revisiónd de productos</h5>
+            <h5 class="card-header">Revisión de productos</h5>
             <div class="card-body">
-                <p class="cart-text">Productos a comprar</p>
+                
+              
+                
+
+              <table class="table table-borderless table-shopping-cart">
+                <thead class="text-muted">
+                  <tr class="small text-uppercase">
+                    <th scope="col">Product</th>
+                    <th scope="col" width="120">Cantidad</th>
+                    <th scope="col" width="120">Precio</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for cart_item in cart_items %}
+    
+                  <tr>
+                    <td>
+                      <figure class="itemside align-items-center">
+                        <div class="aside">
+                          <a href="{{ cart_item.product.get_url }}"
+                            ><img
+                              src="{{ cart_item.product.images.url}}"
+                              class="img-sm"
+                          /></a>
+                        </div>
+                        <figcaption class="info">
+                          <a
+                            href="{{ cart_item.product.get_url }}"
+                            class="title text-dark"
+                            >{{ cart_item.product.product_name }}</a
+                          >
+                          <p class="text-muted small">
+                            {% if cart_item.variations.all  %}
+                              {% for item in cart_item.variations.all %}
+                                {{item.variation_category | capfirst}} : {{ item.variation_value | capfirst}}  <br>
+                              
+                              {% endfor %}
+                            
+                            
+                            {% endif %}
+    
+    
+                          </p>
+                        </figcaption>
+                      </figure>
+                    </td>
+                    <td>
+                      <!-- col.// -->
+                        <label for="">{{ cart_item.quantity }}</label>
+                      <!-- col.// -->
+                    </td>
+                    <td>
+                      <div class="price-wrap">
+                        <var class="price">${{ cart_item.sub_total }}</var>
+                        <small class="text-muted">
+                          ${{ cart_item.product.price}} cada uno
+                        </small>
+                      </div>
+                      <!-- price-wrap .// -->
+                    </td>
+                   
+                  </tr>
+    
+                  {% endfor %}
+                </tbody>
+            </table>
+
+
+
+
             </div>
         </div>
         <!-- card.// -->
@@ -58,9 +135,7 @@
             <p class="text-center mb-3">
               <img src="{% static 'images/misc/payments.png' %}" height="26" />
             </p>
-            <a href="{% url 'checkout' %}" class="btn btn-primary btn-block">
-              Confirmar Pago
-            </a>
+            <div id="paypal-button-container"></div>
 
           </div>
           <!-- card-body.// -->
@@ -71,12 +146,84 @@
     </div>
     <!-- row.// -->
 
-
-
     <!-- ============================ COMPONENT 1 END .// ================================= -->
   </div>
   <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
 
+<script>
+
+  /*
+  Esta función lo que hace es cargar todas las Cookies de mi navegador y guardarlos como un arreglo en la variable **cookies** para luego iterar entre todas ellas hasta encentrar la cookie con el **name** csrftoken, el cual es el que me interesa y al encontrarla haré un **return** con el valor de la cookie csrftoken .
+  Así se ve la cookie que quiero extraer entretodas las cookies es: csrftoken=BDuOhVkYBUGZnhMwjxG2bsac5sTGPCJQyBIgfbxRdSbvT3jWiy3R9xouT7lsoSQx, pero lo que voy a retornar es: BDuOhVkYBUGZnhMwjxG2bsac5sTGPCJQyBIgfbxRdSbvT3jWiy3R9xouT7lsoSQx
+  */
+  function getCookie(name){ //función para extraer la cookie actual generada por el **csrftoken**
+    let cookieValue = null; // let es para declarar una variable local
+    if (document.cookie && document.cookie !== ''){ //primero, verifica si existe una cookie en el document, luego, si existe, verifica que esa cookie no esté vacia.
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++){ //se hará un iteración según la cantidad de cookies encontrados en el navegador.
+        const cookie = cookies[i].trim(); //aquí se eliminan todos los espacios de cada elemento del arreglo (cookie)
+        if(cookie.substring(0,name.length + 1) === (name + '=')){ //Con substring, busco en cada iteración un elemento  del arreglo que desde el caracter 0 hasta el caracter name.length + 1,  sea === a name + '=', y de esta forma en contraré mi cookie csrftoken
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));// cookie.substring(name.length + 1) lo uso para obtener el valor del la cookie sin el **name**
+          break;
+        }  
+      }
+    }
+    return cookieValue
+  }
+
+  var amount = "{{ grand_total }}"; //Monto total
+  var url = "{% url 'payments' %}"; // esta url haré que se le haga un request para que se invoque la función/view que insertará la información generada luego de la transacción hecha por paypal a la tabla/entidad ***payment**
+  var csrftoken = getCookie('csrftoken');
+  var orderID = "{{ order.order_number }}";
+  var payment_method = "Paypal";
+
+  
+  // Render the PayPal button into #paypal-button-container
+  paypal.Buttons({
+      // Set up the transaction
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: amount
+                  }
+              }]
+          });
+      },
+
+      // Finalize the transaction
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+              // Successful capture! For demo purposes:
+              console.log(orderData);
+              sendData();
+
+              function sendData(){
+                fetch(url,{       //
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken" : csrftoken,
+                  },
+                  body: JSON.stringify({ 
+                    orderID: orderID,
+                    transID: orderData.id,
+                    payment_method: payment_method,
+                    status: orderData.status
+                  }),
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+              }
+          });
+      }
+
+  }).render('#paypal-button-container');
+</script>
+
 {% endblock %}
+
+
+
