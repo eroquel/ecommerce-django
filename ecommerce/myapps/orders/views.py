@@ -5,6 +5,8 @@ from ..store.models import Product
 from .forms import OrderForm
 from .models import Order, OrderProduct, Payment, OrderProduct
 import json
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -50,7 +52,20 @@ def payments(request):
         product.stock -= item.quantity
         product.save()
 
-        CartItem.objects.filter(user=request.user).delete()
+    CartItem.objects.filter(user=request.user).delete()
+
+    '''
+    Enviar correo de confirmación de compra:
+    '''
+    mail_subject = 'Gracias por tu compra'
+    body = render_to_string('orders/order_recieved_email.html', {
+        'user': request.user,
+        'order': order,
+    })
+
+    to_email =request.user.email
+    send_email = EmailMessage(mail_subject, body, to=[to_email])
+    send_email.send()
 
 
     return render(request, 'orders/payments.html')
