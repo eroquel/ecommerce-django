@@ -20,12 +20,11 @@ class Payment(models.Model):
 
 
 class Order(models.Model):
-    STATUS = (  #esto es un diccionario totalmente personalizado que he creado para ofrecer múltiples opciones al atributo **status** en esta misma tabla
+    STATUS = (  #esto es un diccionario totalmente personalizado que he creado para ofrecer múltiples opciones al atributo **status** en esta misma tabla. en el admin esto será un select
         ('New', 'Nuevo'),
         ('Accepted', 'Aceptado'),
         ('Completed', 'Completado'),
         ('Cancelled', 'Cancelado')
-
     )
     user = models.ForeignKey(Account, on_delete=models.SET_NULL, null = True)
     payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank = True, null = True)
@@ -64,9 +63,8 @@ class OrderProduct(models.Model):
     payment = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null = True)
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    variation = models.ForeignKey(Variation, on_delete=models.CASCADE)
-    color = models.CharField(max_length=50)
-    size = models.IntegerField()
+    variation = models.ManyToManyField(Variation, blank=True)
+    quantity = models.IntegerField(default=0)
     product_price = models.FloatField()
     ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
