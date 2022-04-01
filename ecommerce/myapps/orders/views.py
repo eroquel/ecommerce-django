@@ -1,7 +1,7 @@
 import datetime
-from itertools import product
 from django.shortcuts import redirect, render
 from ..carts.models import CartItem
+from ..store.models import Product
 from .forms import OrderForm
 from .models import Order, OrderProduct, Payment, OrderProduct
 import json
@@ -45,6 +45,12 @@ def payments(request):
         orderproduct = OrderProduct.objects.get(id=orderproduct.id)
         orderproduct.variation.set(product_variation) #al hacer esto, en el admin aparaeceran seleccionadas las variaciones que el comprador seleccionó
         orderproduct.save()
+
+        product = Product.objects.get(id=item.product_id)
+        product.stock -= item.quantity
+        product.save()
+
+        CartItem.objects.filter(user=request.user).delete()
 
 
     return render(request, 'orders/payments.html')
