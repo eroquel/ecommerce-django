@@ -178,6 +178,7 @@
   var csrftoken = getCookie('csrftoken');
   var orderID = "{{ order.order_number }}";
   var payment_method = "Paypal";
+  var redirect_url = "{% url 'order_completed' %}"
 
   
   // Render the PayPal button into #paypal-button-container
@@ -214,8 +215,13 @@
                     status: orderData.status
                   }),
                 })
-                .then(response => response.json())
-                .then(data => console.log(data))
+                .then((response) => response.json())
+                //En el siguiente then recibe una respuesta del servidor en el objeto **data** enviado desde la vista **payment**
+                //redirect_url es una variable que declaré con la URL a la cual se va a  redireccionar junto con 
+                .then((data) => {  //Aquí redirecciono a la url **redirect_url** y a esta URL le paso 2 parametros que se mostrarán el la URL con los varles: data.order_number y data.transID
+                  window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+                  //este es el resultado: http://127.0.0.1:8000/orders/order_completed/?order_number=20220401104&payment_id=75L57646G3816374V
+                });
               }
           });
       }

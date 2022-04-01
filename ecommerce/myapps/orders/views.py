@@ -1,4 +1,6 @@
 import datetime
+from django.http import JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from ..carts.models import CartItem
 from ..store.models import Product
@@ -27,8 +29,7 @@ def payments(request):
     order.is_ordered = True #cambio el estado de la orden que antes era False y ahora es True, para indicar que la orden fue realizada
     order.save()
 
-    #Mover todos los items del carrito a la tabla OrderProduct
-
+    #Mover todos los items del carrito a la tabla OrderProduct:
     cart_items = CartItem.objects.filter(user=request.user)
 
     for item in cart_items:
@@ -67,8 +68,16 @@ def payments(request):
     send_email = EmailMessage(mail_subject, body, to=[to_email])
     send_email.send()
 
+    '''
+    La función **pyament** no retorará una plantilla si no, un **JasonResponse** con un objeto lladamado **data**
+    a la fucion de Paypal que procesa el pago utilizando, y recibirá a **data** gracias al objeto **then**:
+    '''
+    data = {
+        'order_number': order.order_number,
+        'transID': payment.payment_id
+    }
 
-    return render(request, 'orders/payments.html')
+    return JsonResponse(data)
     
 
 
@@ -146,3 +155,28 @@ def place_order(request, total = 0, quantity = 0):
     else:
         return redirect('checkout')
 
+def order_completed(request):
+    order_number = request.GET.get('order_number')
+    transID = request.GET.get('payment_id')
+
+    try:
+        order =Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_products = OrderProduct.objects.filter(order_id=order.id)
+
+        subtotal = 0
+        for i in ordered_products:
+            subtotal += i.product_price*i.quantity
+
+        payment =Payment.objects.get(payment_id=transID)
+
+        context = {
+            'order': order,
+            'ordered_products': ordered_products,
+            'order_number': order.order_number,
+            'transID': payment.payment_id,
+            'payment': payment,
+            'subtotal': subtotal,
+        }
+        return render(request, 'orders/order_completed.html', context)
+    except(Payment.DoesNotExist, Order.DoesNotExist):
+        return redirect('home')
