@@ -57,6 +57,10 @@ class Account(AbstractBaseUser): # en esta clase (modelo) se definen los campos 
 
     objects = MyAccountManager() #Objects, será una instancia de MyAccountManager. Agrego a aquí este Objcts para crear nuevos usuario, ya que así, se almacenarán en la tabla Account creado por el modelo Account.
 
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+
     def __str__(self):
         return self.email
 

@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.db.models import Avg #para sacar promedios
+
+from ..accounts.models import Account
 from ..category.models import Category
 
 class Product(models.Model):
@@ -19,6 +22,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
+
+    def averageReview(self):
+        reviews= ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating')) #dice, obten todo los reviews del producto y saca el promedio según el atriguto **rating** de cada registro de ReviewRating y almacenalo en la variable **reviews**
+        review_avg = 0
+        if reviews['average'] is not None:
+            review_avg = float(reviews['average'])
+        return review_avg
+            
 
 class VariationManager(models.Manager):
     def colors(self):
@@ -44,4 +55,18 @@ class Variation(models.Model):
 
     def __str__(self):
         return self.variation_category + ':' + self.variation_value
+
+class ReviewRating(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=100, blank=True)
+    review = models.CharField(max_length=500, blank=True)
+    rating = models.FloatField()
+    ip = models.CharField(max_length=20, blank=True)
+    status = models.BooleanField(default=True)
+    crated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject
 
