@@ -1,6 +1,7 @@
+
 from django.db import models
 from django.urls import reverse
-from django.db.models import Avg #para sacar promedios
+from django.db.models import Avg, Count
 
 from ..accounts.models import Account
 from ..category.models import Category
@@ -25,10 +26,18 @@ class Product(models.Model):
 
     def averageReview(self):
         reviews= ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating')) #dice, obten todo los reviews del producto y saca el promedio según el atriguto **rating** de cada registro de ReviewRating y almacenalo en la variable **reviews**
+        #print(reviews)
         review_avg = 0
         if reviews['average'] is not None:
             review_avg = float(reviews['average'])
         return review_avg
+    
+    def countReview(self):
+        reviews = ReviewRating.objects.filter(product=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if reviews['count'] is not None:
+            count = int(reviews['count'])
+        return count
             
 
 class VariationManager(models.Manager):

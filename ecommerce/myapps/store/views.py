@@ -51,10 +51,16 @@ def product_detail(request, category_slug, product_slug):
     except Exception as e:
         raise e
 
-    try:  #esto es para ser usado para validar si el usuario compro o no el producto, y ni no lo compró no podrá hacer un review.
-        orderedproduct = OrderProduct.objects.filter(user = request.user, product_id = single_product.id).exists()
-    except OrderProduct.DoesNotExist:
+    if request.user.is_authenticated:
+
+        try:  #esto es para ser usado para validar si el usuario compro o no el producto, y ni no lo compró no podrá hacer un review.
+            orderedproduct = OrderProduct.objects.filter(user = request.user, product_id = single_product.id).exists()
+        except OrderProduct.DoesNotExist:
+            orderedproduct = None
+
+    else:
         orderedproduct = None
+
     reviews = ReviewRating.objects.filter(product_id = single_product.id, status = True) #aquí estoy guardando en la variable **reviews** todos los reviews del producto actual.
 
     context ={
