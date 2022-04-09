@@ -25,7 +25,7 @@ class Product(models.Model):
         return self.product_name
 
     def averageReview(self):
-        reviews= ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating')) #dice, obten todo los reviews del producto y saca el promedio según el atriguto **rating** de cada registro de ReviewRating y almacenalo en la variable **reviews**
+        reviews= ReviewRating.objects.filter(product=self, status=True).aggregate(average=Avg('rating')) #Dice, obtén todo los reviews del producto y saca el promedio según el atributo **rating** de cada registro de ReviewRating y almacénalo en la variable **reviews**
         #print(reviews)
         review_avg = 0
         if reviews['average'] is not None:

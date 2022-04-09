@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, render
-from ..accounts.forms import RegistrationForm
-from .models import Account # **Acount** es el modelo/entidad donde insertaré (base de datos) la información recopilada en el formulario **from**
+from django.shortcuts import get_object_or_404, redirect, render
+
+from ..accounts.forms import RegistrationForm, UserForm, UserProfileForm
 from django.contrib import messages, auth #**messages** para poder usar el maquete que me permite imprimier mensajes y alertas en el frontend
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
@@ -10,6 +10,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
 
+from .models import Account, UserProfile # **Acount** es el modelo/entidad donde insertaré (base de datos) la información recopilada en el formulario **from**
+from ..orders.models import Order
 from ..carts.views import _cart_id, cart
 from ..carts.models import Cart, CartItem
 import requests
@@ -29,8 +31,14 @@ def register(request):
             username = email.split("@")[0] #como está definido en el mi clase Account/entidad, todo usuario debe tener un nombre de usuario, pero este campo no está en mi formulario register, en esta ocasión auto generaré dicho campo y usaré el correo. Primero dividiré el correo en según el @ y solo tomaré lo que está antes del @ usando la función de Python **split**.
             user = Account.objects.create_user(first_name = first_name, last_name = last_name, email = email, password = password, username = username ) #   Generando/no creando, un nuevo usuario
             user.phone_number = phone_number # como este la propiedad/campo phone_number no fue agregada el mi función **create_user** al crear mi modelo/entidad Account, pero si es una propiedad de me Account, debo agregarlo de esta manera. 
-            user.save() #esta es la función que guarda este nuevo record/usuario en la base de datos. Ojo, esto sucederé la validación hecha por **is_valid()** devuelve True, es decir, si es valido.
-            '''Enviar correo de activación
+            user.save() #esta es la función que guarda este nuevo record/usuario en la base de datos. Ojo, esto sucederá luego de la validación hecha por **is_valid()** la cual devuelve True, es decir, si es válido.
+            
+            profile = UserProfile() #Aquí estoy instanciando un nuevo objeto UserProfile() y luego le agrego al atributo **user** el user.id del usuario que acabo de registra. Así enlazo la cuenta (Account) con su perfil (UserProfile)
+            profile.user_id = user.id
+            profile.profile_picture = 'default/default-image-profile-user.jpg' #imagen por defecto para todos los nuevos usuarios
+            profile.save()
+            
+            '''Enviar correo para la activación
             El siguiente es el código para enviar el correo de activación para el nuevo usuario
             '''
             current_site = get_current_site(request) #obtén la url de la página acutal.
@@ -149,9 +157,16 @@ def activate(request, uidb64, token): #activa la cuenta del usuario vía correo
         messages.error(request, 'La activación fue invalida')
         return redirect('register')
 
+
 @login_required(login_url=login)
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    orders = Order.objects.order_by('-created_at').filter(user_id = request.user.id, is_ordered = True) #Almacena en la variable **order** todos los registros de las ordenes realizadas por el usuario
+    orders_count = orders.count() #almacena en **orders_count** el numero total de las ordenes realizadas
+    context = {
+        'orders_count': orders_count,
+    }
+    return render(request, 'accounts/dashboard.html', context)
+
 
 def forgot_password(request):
     if request.method == 'POST':
@@ -213,3 +228,33 @@ def reset_password(request):
         return render(request, 'accounts/reset_password.html')
 
 
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
+    context = {
+        'orders': orders,
+    }
+    return render(request, 'accounts/my_orders.html', context)
+
+@login_required(login_url=login)
+def edit_profile(request):
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    if request.method == 'POST': #Este **if** es para agregar o modificar la información del perfil, el **Else** es para desplegar la información ya registrada.
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, "Su información fue guarada con éxito")
+            return redirect('edit_profile')
+    
+    else: #Si no recibo el formulario por POST al disparar **edit_profile()** solicita la data registrada en **UserForm** y **UserProfileForm** para luego mandarla por un contexto y mostrarla en el template
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=user_profile)
+    
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'user_profile': user_profile,
+    }
+
+    return render(request, 'accounts/edit_profile.html', context)

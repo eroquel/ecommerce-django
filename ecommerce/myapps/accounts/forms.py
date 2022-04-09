@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account #El modelo que creé para los diferentes usuarios, lo usaré en el form Registration
+from .models import Account, UserProfile #El modelo que creé para los diferentes usuarios, lo usaré en el form Registration
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -39,3 +39,25 @@ class RegistrationForm(forms.ModelForm):
             raise forms.ValidationError(
                 "El password no coincide!"
             )
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = Account #Modelo que voy a usar.
+        fields = ('first_name', 'last_name', 'phone_number') #Campos que voy a recibir, los cuales deben coincidir con los atrigutos de mi modelo.
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class']='form-control' #Estilos que le asignaré a todos los campos.
+
+class UserProfileForm(forms.ModelForm):
+    profile_picture = forms.ImageField(required=False, error_messages={'invalid': ('Solo se perminten imagenes')}, widget=forms.FileInput) # a la imagen de perfil, no es un campo obligatorio (required=False) y si se sube un archivo que no es un imagen, muestra un mensaje de error (error_messages)
+    class Meta:
+        model = UserProfile #Modelo que voy a usar.
+        fields = ('address_line_1', 'address_line_2', 'city', 'state', 'country', 'profile_picture') #Campos que voy a recibir, los cuales deben coincidir con los atrigutos de mi modelo.
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class']='form-control' #Estilos que le asignaré a todos los campos.
+
