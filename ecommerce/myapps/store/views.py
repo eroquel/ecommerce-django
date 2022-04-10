@@ -69,10 +69,9 @@ def product_detail(request, category_slug, product_slug):
         'orderedproduct': orderedproduct,
         'reviews': reviews,
     }
-
-    
-
+  
     return render(request, 'store/product_datail.html', context)
+    
 
 def search(request):
     products = 0

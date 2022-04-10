@@ -22,7 +22,7 @@ media
 *$py.class
 
 #tmp
-./ecommerce/templates/accounts/tmp/
+tmp/
 
 # C extensions
 *.so

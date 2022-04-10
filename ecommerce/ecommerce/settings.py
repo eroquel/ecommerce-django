@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'myapps.store',
     'myapps.carts',
     'myapps.orders',
+    'admin_honeypot',
 ]
 
 INSTALLED_APPS += ('naomi',)
@@ -56,7 +57,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
+SESSION_EXPIRE_SECONDS = 3600 #una hora de inactividad.
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True #Que funcione al último momento de inactividad del usuario.
+SESSION_TIMEOUT_REDIRECT = '/accounts/login' #Página donde redireccionará luego de cerrar la sesión.
 
 ROOT_URLCONF = 'ecommerce.urls'
 
@@ -146,11 +152,11 @@ MESSAGE_TAGS = {
 }
 
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
 if DEBUG == True:
     EMAIL_BACKEND = "naomi.mail.backends.naomi.NaomiBackend"
