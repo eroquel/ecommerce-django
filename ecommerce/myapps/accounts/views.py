@@ -157,17 +157,6 @@ def activate(request, uidb64, token): #activa la cuenta del usuario vía correo
         messages.error(request, 'La activación fue invalida')
         return redirect('register')
 
-
-@login_required(login_url=login)
-def dashboard(request):
-    orders = Order.objects.order_by('-created_at').filter(user_id = request.user.id, is_ordered = True) #Almacena en la variable **order** todos los registros de las ordenes realizadas por el usuario
-    orders_count = orders.count() #almacena en **orders_count** el numero total de las ordenes realizadas
-    context = {
-        'orders_count': orders_count,
-    }
-    return render(request, 'accounts/dashboard.html', context)
-
-
 def forgot_password(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -228,6 +217,20 @@ def reset_password(request):
         return render(request, 'accounts/reset_password.html')
 
 
+@login_required(login_url=login)
+def dashboard(request):
+    orders = Order.objects.order_by('-created_at').filter(user_id = request.user.id, is_ordered = True) #Almacena en la variable **order** todos los registros de las ordenes realizadas por el usuario
+    orders_count = orders.count() #almacena en **orders_count** el numero total de las ordenes realizadas
+
+    user_profile = UserProfile.objects.get(user_id=request.user.id)
+
+    context = {
+        'orders_count': orders_count,
+        'user_profile': user_profile,
+    }
+    return render(request, 'accounts/dashboard.html', context)
+
+
 def my_orders(request):
     orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
     context = {
@@ -258,3 +261,28 @@ def edit_profile(request):
     }
 
     return render(request, 'accounts/edit_profile.html', context)
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        current_password = request.POST['current_password']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
+
+        user = Account.objects.get(id=request.user.id) #en el curso se validaba con el username, pero lo puse con el id.
+
+        if new_password == confirm_password:
+            success = user.check_password(current_password)
+            if success:
+                user.set_password(new_password)
+                user.save()
+
+                messages.success(request, "Su contraseña ha sido cambiada existosamente")
+                return redirect('change_password')
+            else:
+                messages.error(request, "Ingrese una contraseña correcta")
+                return redirect('change_password')
+        else:
+            messages.error(request, "Las constraseñan no coincide con el campo confirmar contraseña")
+            return redirect('change_password')
+    return render(request, 'accounts/change_password.html')

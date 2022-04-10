@@ -21,6 +21,9 @@ media
 *.py[cod]
 *$py.class
 
+#tmp
+./ecommerce/templates/accounts/tmp/
+
 # C extensions
 *.so
 

@@ -34,7 +34,9 @@
                     <div class="col-md-6">
                         <div class="card" style="text-align:center;">
                             <div class="card-body">
-                                <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Avatar" width="50" height="50" style="boder-radius:50%;">
+                                <div style="border-radius:50%; width:45px; height: 45px; overflow:hidden; display: inline-block;" >
+                                    <img src="{{ user_profile.profile_picture.url }}" alt="Imagen de perfil" width="100%">
+                               </div>
                                 <p class="mb-0">{{ user.email }}</p>
                                 <p>{{ user.phone_number }}</p>
                             </div>
