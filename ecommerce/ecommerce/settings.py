@@ -103,7 +103,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 import dj_database_url
 
-DATABASE ={ #Base de datos en producción
+DATABASES ={ #Base de datos en producción
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
