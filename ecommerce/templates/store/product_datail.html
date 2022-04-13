@@ -41,9 +41,13 @@
         </div> 
         
         <p>{{ single_product.description }}</p>
-        
-        
+      
+
+        {% if single_product.variation_set.count > 1 %}
         <hr>
+
+      
+
             <div class="row">
                 <div class="item-option-select">
                     <h6>Seleccionar Color</h6>
@@ -66,6 +70,8 @@
                     </select>
                 </div>
             </div> <!-- row.// -->
+           
+            {% endif %}
             <hr>
             {% if single_product.stock <= 0 %}
             
