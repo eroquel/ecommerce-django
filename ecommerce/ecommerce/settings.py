@@ -94,20 +94,20 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-import dj_database_url
-
-DATABASES ={ #Base de datos en producción
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# import dj_database_url
+
+# DATABASES ={ #Base de datos en producción
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -148,7 +148,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
 
-if not DEBUG:
+if not DEBUG: #Esto evita el error: django The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting
     STATIC_ROOT =''
 
 STATICFILES_DIRS = [
