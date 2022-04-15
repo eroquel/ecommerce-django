@@ -66,7 +66,7 @@ SESSION_EXPIRE_SECONDS = 3600 #segundos
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True #Que funcione al último momento de inactividad del usuario.
 SESSION_TIMEOUT_REDIRECT = '/accounts/login' #Página donde redireccionará luego de cerrar la sesión.
 
-ROOT_URLCONF = 'ecommerce.ecommerce.urls'
+ROOT_URLCONF = 'ecommerce.urls'
 
 TEMPLATES = [
     {
@@ -108,6 +108,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 #         default=config('DATABASE_URL')
 #     )
 # }
+
 
 heroku_database_url = dj_database_url.config(default=config('DATABASE_URL', None))
 
