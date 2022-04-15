@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -107,8 +108,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 #         default=config('DATABASE_URL')
 #     )
 # }
-import dj_database_url
-DATABASE_URL = None
+
 heroku_database_url = dj_database_url.config(default=config('DATABASE_URL', None))
 
 if heroku_database_url:
