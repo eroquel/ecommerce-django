@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -100,13 +100,33 @@ AUTH_USER_MODEL = 'accounts.Account'
 #     }
 # }
 
-import dj_database_url
+# import dj_database_url
 
-DATABASES ={ #Base de datos en producción
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-}
+# DATABASES ={ #Base de datos en producción
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
+import dj_database_url
+DATABASE_URL = None
+heroku_database_url = dj_database_url.config(default=config('DATABASE_URL', None))
+
+if heroku_database_url:
+    # heroku production setting
+    DATABASES = {
+       'default': heroku_database_url
+    }
+else:
+    # development/test setting
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
