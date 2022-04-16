@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapps.category',
     'myapps.accounts',
-    'ecommerce.myapps.store',
+    'myapps.store',
     'myapps.carts',
     'myapps.orders',
     'admin_honeypot',
@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ecommerce.wsgi.application'
+WSGI_APPLICATION = 'ecommerce.ecommerce.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
