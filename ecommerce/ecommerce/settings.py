@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ecommerce.wsgi.application'
+WSGI_APPLICATION = 'ecommerce.ecommerce.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
