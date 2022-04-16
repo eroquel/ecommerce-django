@@ -110,32 +110,32 @@ AUTH_USER_MODEL = 'accounts.Account'
 # }
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', #aquí especifico el motro y que usaré la librería psycopg2 como gestor de base datos.
-        'NAME': 'local_ecommerce', #Nombre de la base de datos que creé en con el PGAdmin de Postgres.
-        'USER': 'postgres', #User name por defecto de Postgres.
-        'PASSWORD': '1I7cJ%9RfZr9XdG9&2', #La contraseña que yo creé al instalar Postgres.
-        'HOST': 'localhost', #Configuraciuón por defecto .
-        'PORT': '5432',#Configuraciuón por defecto .
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2', #aquí especifico el motro y que usaré la librería psycopg2 como gestor de base datos.
+#         'NAME': 'local_ecommerce', #Nombre de la base de datos que creé en con el PGAdmin de Postgres.
+#         'USER': 'postgres', #User name por defecto de Postgres.
+#         'PASSWORD': '1I7cJ%9RfZr9XdG9&2', #La contraseña que yo creé al instalar Postgres.
+#         'HOST': 'localhost', #Configuraciuón por defecto .
+#         'PORT': '5432',#Configuraciuón por defecto .
+#     }
+# }
+
+heroku_database_url = dj_database_url.config(default=config('DATABASE_URL', None))
+
+if heroku_database_url:
+    # heroku production setting
+    DATABASES = {
+       'default': heroku_database_url
     }
-}
-
-# heroku_database_url = dj_database_url.config(default=config('DATABASE_URL', None))
-
-# if heroku_database_url:
-#     # heroku production setting
-#     DATABASES = {
-#        'default': heroku_database_url
-#     }
-# else:
-#     # development/test setting
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
+else:
+    # development/test setting
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 
