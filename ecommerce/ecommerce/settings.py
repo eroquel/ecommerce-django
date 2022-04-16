@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapps.category',
     'myapps.accounts',
-    'myapps.store',
+    'ecommerce.myapps.store',
     'myapps.carts',
     'myapps.orders',
     'admin_honeypot',
