@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 
 from .models import Product, ReviewRating
 from ..category.models import Category
-from myapps.carts.models import CartItem
+from ..carts.models import CartItem
 from ..carts.views import _cart_id
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator #estas Clases son secesarioas para crear la páginación
 from django.db.models import Q #Esta clase es para crear un buscador.
