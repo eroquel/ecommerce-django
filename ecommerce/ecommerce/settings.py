@@ -66,7 +66,7 @@ SESSION_EXPIRE_SECONDS = 3600 #segundos
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True #Que funcione al último momento de inactividad del usuario.
 SESSION_TIMEOUT_REDIRECT = '/accounts/login' #Página donde redireccionará luego de cerrar la sesión.
 
-ROOT_URLCONF = 'ecommerce.urls'
+ROOT_URLCONF = 'ecommerce.ecommerce.urls'
 
 TEMPLATES = [
     {
@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ecommerce.wsgi.application'
+WSGI_APPLICATION = 'ecommerce.ecommerce.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
