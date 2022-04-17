@@ -174,6 +174,8 @@ MEDIA_ROOT = BASE_DIR /'media'
 
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 from django.contrib.messages import constants as messages 
 MESSAGE_TAGS = {
     messages.ERROR : 'danger', # Aquí indico que el tag error ahora será danger, ya que este último es el que usa bootstrap CSS.
