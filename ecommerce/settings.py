@@ -169,10 +169,10 @@ STATICFILES_DIRS = [
     'ecommerce/static'
 ]
 
-MEDIA_URL = 'media/' #Muy importante, en el tutorial dice que va **/media/** pero es **media/**
+MEDIA_URL = '/media/' #Muy importante, en el tutorial dice que va **/media/** pero es **media/**
 MEDIA_ROOT = BASE_DIR /'media'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
