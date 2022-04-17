@@ -94,26 +94,7 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 AUTH_USER_MODEL = 'accounts.Account'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# import dj_database_url
-
-# DATABASES ={ #Base de datos en producción
-#     'default': dj_database_url.config(
-#         default=config('DATABASE_URL')
-#     )
-# }
-
-
-# DATABASES = {
+# DATABASES = { #Este codigo es sólo una pruba, para conectar mi proyecto a una pase de datos local en Posgrest, lo cual funciona correctamente.
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2', #aquí especifico el motro y que usaré la librería psycopg2 como gestor de base datos.
 #         'NAME': 'local_ecommerce', #Nombre de la base de datos que creé en con el PGAdmin de Postgres.
@@ -139,7 +120,6 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
 
 
 
@@ -182,8 +162,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'
 
-if not DEBUG: #Esto evita el error: django The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting
-    STATIC_ROOT =''
+#if not DEBUG: #Esto evita el error: django The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting
+#    STATIC_ROOT =''
 
 STATICFILES_DIRS = [
     'ecommerce/static'
@@ -196,7 +176,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 from django.contrib.messages import constants as messages 
 MESSAGE_TAGS = {
-    messages.ERROR : 'danger', # Aquí indico que el tag error ahora será danger, ya que este ultimo es el que usa bootstrap para sus estilos.
+    messages.ERROR : 'danger', # Aquí indico que el tag error ahora será danger, ya que este último es el que usa bootstrap CSS.
 }
 
 
