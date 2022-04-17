@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_admin_logs',
     'myapps.category',
     'myapps.accounts',
     'myapps.store',
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS += ('naomi',)
+
+DJANGO_ADMIN_LOGS_DELETABLE = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -62,7 +65,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-SESSION_EXPIRE_SECONDS = 3600 #segundos
+SESSION_EXPIRE_SECONDS = 33600 #segundos
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True #Que funcione al último momento de inactividad del usuario.
 SESSION_TIMEOUT_REDIRECT = '/accounts/login' #Página donde redireccionará luego de cerrar la sesión.
 
