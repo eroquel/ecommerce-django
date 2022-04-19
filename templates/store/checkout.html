@@ -10,7 +10,7 @@
     {% comment %} {% for item in my_object %}
       <p>{{ item }}</p>
      {% endfor %} {% endcomment %}
-    
+     {% include 'includes/alerts.html' %}
 
 
     <div class="row">
@@ -26,12 +26,12 @@
                     <div class="form-row">
                         <div class="col form-group">
                             <label for="">Nombre</label>
-                            <input type="text" name="first_name" class="form-control">
+                            <input type="text" name="first_name" class="form-control" required>
                         </div>
 
                         <div class="col form-group">
                             <label for="">Apellido</label>
-                            <input type="text" name="last_name" class="form-control">
+                            <input type="text" name="last_name" class="form-control" required>
                         </div>
 
                     </div>
@@ -39,19 +39,19 @@
                     <div class="form-row">
                         <div class="col form-group">
                             <label for="">Email</label>
-                            <input type="email" name="email" class="form-control">
+                            <input type="email" name="email" class="form-control" required>
                         </div>
 
                         <div class="col form-group">
                             <label for="">Teléfono</label>
-                            <input type="text" name="phone" class="form-control">
+                            <input type="text" name="phone" class="form-control" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="col form-group">
                             <label for="">Dirección</label>
-                            <input type="text" name="address_line_1" class="form-control">
+                            <input type="text" name="address_line_1" class="form-control" required>
                         </div>
 
                         <div class="col form-group">
@@ -63,16 +63,16 @@
                     <div class="form-row">
                         <div class="col form-group">
                             <label for="">Ciudad</label>
-                            <input type="text" name="city" class="form-control">
+                            <input type="text" name="city" class="form-control" required>
                         </div>
 
                         <div class="col form-group">
                             <label for="">Estado</label>
-                            <input type="text" name="state" class="form-control">
+                            <input type="text" name="state" class="form-control" required>
                         </div>
                         <div class="col form-group">
                             <label for="">País</label>
-                            <input type="text" name="country" class="form-control">
+                            <input type="text" name="country" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-row">

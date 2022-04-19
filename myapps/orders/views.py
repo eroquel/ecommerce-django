@@ -1,6 +1,5 @@
 import datetime
 from django.http import JsonResponse
-from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from ..carts.models import CartItem
 from ..store.models import Product
@@ -9,6 +8,7 @@ from .models import Order, OrderProduct, Payment, OrderProduct
 import json
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.contrib import messages
 
 # Create your views here.
 
@@ -151,7 +151,9 @@ def place_order(request, total = 0, quantity = 0):
             return render(request,'orders/payments.html', context)
 
         else:
-            print('******************problema con el form*********************')
+            print('******************555problema con el form*********************')
+            messages.error(request, 'Debe llenar todos los campos para continuar')
+            return redirect('checkout')
     else:
         return redirect('checkout')
 
