@@ -17,8 +17,8 @@ def _cart_id(request):
 
 
 """**add_cart**: Agregar un producto a la sesión del usuario/carrito de compras
-Esta función se disparará cuando el usuario de click al boton **Agregar Prodcuto** o al darle click al boton de **+** 
-para aumentar la cantidad desde la sección cart. esto  desencanenarará todo lo que se muestra en este archivo. Tambien
+Esta función se disparará cuando el usuario hace click al boton **Agregar Prodcuto** o al darle click al boton de **+** 
+para aumentar la cantidad desde la sección cart. Esto  desencanenarará todo lo que se muestra en este archivo. Tambien
 Con esta función se creará el carrito(session/cookie) para cada usuario.
 """
 def add_cart(request, product_id): 
