@@ -117,7 +117,7 @@ def add_cart(request, product_id):
         
         is_cart_item_exists = CartItem.objects.filter(product = product, cart = cart).exists()
 
-        if is_cart_item_exists: # Este if (antes era un try) es para agrear un elemento al aun carrito existente carrito , es decir, Crear un **cart_item** a un **cart** existente, como se muestra a continuación.
+        if is_cart_item_exists: # Este if (antes era un try) es para agrear un elemento a un carrito existente carrito , es decir, Crear un **cart_item** a un **cart** existente, como se muestra a continuación.
             cart_item = CartItem.objects.filter(product = product, cart = cart) #busca en **CartItem** un cartItem que cumpla con los parametros recibidos y guardalo en **cart_item**.
             
             ex_var_list = [] #aqui se almacenaran todos los variations ejemplo: [<Variation: color:rojo>, <Variation: talla:large>], [<Variation: color:negro>, <Variation: talla:Medium>] estas son 2 listas porque son de un mismo productos pero con Variatoins diferentes.
@@ -208,7 +208,7 @@ def cart(request, total = 0, quantity = 0, cart_items = None): #Esta funcion se 
             cart_items = CartItem.objects.filter(user = request.user, is_active = True)
         else:
             cart = Cart.objects.get(cart_id = _cart_id(request)) #Extrae dentro de Cart un Cart_id igual al comprobado en la función _cart_id().
-            cart_items = CartItem.objects.filter(cart = cart, is_active = True) #Busca dentro de CartItem un cart igual al **cart comprobado en la linea anterior** y que esté activo.
+            cart_items = CartItem.objects.order_by('-created_at').filter(cart = cart, is_active = True) #Busca dentro de CartItem un cart igual al **cart comprobado en la linea anterior** y que esté activo.
 
         
         for cart_item in cart_items: #Este bucle es para conseguir los totales del costo de todos los prodcutos y de la cantidad total de productos en el carrito

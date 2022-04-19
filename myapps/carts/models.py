@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 from myapps.accounts.models import Account
 from ..store.models import Product, Variation
 
@@ -17,6 +17,8 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
     quantity = models.IntegerField()
     is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+   # created_at = models.DateTimeField(auto_now_add=True, default=timezone.now) al crear un created_at en una entidad que ya había sido creada, a todos sus registors anteriores hay que ponerles una fecha por defecto, en este caso es la feha acutal, es decir, que un campo creado la semana pasasa dirá que fué creado hoy, ya que created_at lo agregúe hoy.
 
     def sub_total(self): #aqui creo este atributo el cual surge de la multipicación otros dos atributos
         return self.product.price * self.quantity

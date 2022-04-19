@@ -81,6 +81,14 @@
 },
 {
   "model": "sessions.session",
+  "pk": "fnp6hhc2lq4nxbujw42kaxovk5vi3ykb",
+  "fields": {
+    "session_data": ".eJxVjcsOwiAURP-FtSE8Cly6dO83EB63FrVgCl0Z_12bdNPtnDMzH-IatpZrcbnk7npesHW_vB0ZuVZsYBwso9xoayxciPNbn93WcHU5kZFwcsqCj08sO0gPX-6Vxlr6mgPdFXrQRm814et6uKeB2bf535YSZIh6sporzpjY3wUYNSVphAGJyQsBAXUKoK2YQmSDtIheSwSFA_n-ANtFRZE:1nguvK:d0feSoZJXZOYKnWrO56CIKL5_NeAexiN53RKQNKdc2s",
+    "expire_date": "2022-05-03T20:58:10.213Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "g14kj69icxbasmw8ga6gspgekrjev28z",
   "fields": {
     "session_data": "e30:1naJn7:iAoJac8FN70AoLGUPNlod4cyGLTKFL09_jZ12HZWWMY",
@@ -192,14 +200,6 @@
   }
 },
 {
-  "model": "sessions.session",
-  "pk": "wj7w5xllm4rasxfp5i9khrl17j6eyu53",
-  "fields": {
-    "session_data": ".eJxVjMsOwiAUBf-FtSHALa8u3fsNhMetRS2YQlfGf9cm3XR7ZuZ8iGvYWq7F5ZK763nB1v3ydmTkSjKuhARGgVkQABfi_NZntzVcXU5kJJyctuDjE8sO0sOXe6Wxlr7mQHeFHrTRW034uh7u6WD2bf7XAAZCVJNVXHLGhLLaCqPllEALbQCTF8IEVCkYZcUUIhvAInoFaCQO5PsDx3RFdA:1nfueg:XtiH_9i81vQMigfL3EINwy4U8s7Y4Cb05PCcPJXiWEY",
-    "expire_date": "2022-05-01T02:28:50.332Z"
-  }
-},
-{
   "model": "category.category",
   "pk": 1,
   "fields": {
@@ -214,7 +214,7 @@
   "pk": 2,
   "fields": {
     "category_name": "Ropa de verano",
-    "description": "Ropa de verano en promociÃ³n",
+    "description": "Ropa de verano en promoción",
     "slug": "ropa-de-verano",
     "category_image": "photos/categories/900.jpg"
   }
@@ -223,8 +223,8 @@
   "model": "category.category",
   "pk": 3,
   "fields": {
-    "category_name": "MÃºsica y Media",
-    "description": "Artefactos de mÃºsica moderna",
+    "category_name": "Música y Media",
+    "description": "Artefactos de música moderna",
     "slug": "musica-y-media",
     "category_image": "photos/categories/400.jpg"
   }
@@ -260,7 +260,7 @@
     "email": "e_roquel@hotmail.com",
     "phone_number": "458-578-7854",
     "date_joined": "2022-03-06T04:24:12.746Z",
-    "last_login": "2022-04-17T02:27:15.158Z",
+    "last_login": "2022-04-19T20:56:21.714Z",
     "is_admin": true,
     "is_staff": true,
     "is_active": true,
@@ -269,88 +269,16 @@
 },
 {
   "model": "accounts.account",
-  "pk": 20,
+  "pk": 26,
   "fields": {
-    "password": "pbkdf2_sha256$260000$N0TrLeW1w9ShB30Sit9EfM$ZBMGxqyw/pyZLv6zy7U4yOXMM+bmCGWQ5bXc+g5ktwU=",
-    "first_name": "Broly",
-    "last_name": "Sayan",
-    "username": "eroquel",
-    "email": "eroquel@grafquel.com",
-    "phone_number": "5456456847",
-    "date_joined": "2022-03-22T15:52:13.695Z",
-    "last_login": "2022-03-22T15:52:25.313Z",
-    "is_admin": false,
-    "is_staff": false,
-    "is_active": true,
-    "is_superadmin": false
-  }
-},
-{
-  "model": "accounts.account",
-  "pk": 22,
-  "fields": {
-    "password": "pbkdf2_sha256$260000$0ALQjRMM6Z7W4eccHtVefV$gJ7OYtyAWl3+nnzZBFtS37bK07eZupI73IHPoHgU738=",
+    "password": "pbkdf2_sha256$260000$2DzYV1nv9J13TAdReOWrkE$a93iveVWWOlkzQISTcbaXE+xeDZTWMT2TMBLhEqtUwc=",
     "first_name": "Goku",
-    "last_name": "yin",
-    "username": "test",
-    "email": "test@test98.com",
-    "phone_number": "564987654",
-    "date_joined": "2022-03-22T19:59:19.912Z",
-    "last_login": "2022-03-23T15:50:59.746Z",
-    "is_admin": false,
-    "is_staff": false,
-    "is_active": true,
-    "is_superadmin": false
-  }
-},
-{
-  "model": "accounts.account",
-  "pk": 23,
-  "fields": {
-    "password": "pbkdf2_sha256$260000$qlsoZppMreQkuV3FfnN1xt$772S71agnI4KyLz0E/9ycu+l5h+OlPMoSSXkH5o2/8Q=",
-    "first_name": "ulon",
-    "last_name": "yan",
-    "username": "ulo",
-    "email": "ulo@u.com",
-    "phone_number": "123456789",
-    "date_joined": "2022-04-01T16:06:56.783Z",
-    "last_login": "2022-04-01T16:06:56.829Z",
-    "is_admin": false,
-    "is_staff": false,
-    "is_active": false,
-    "is_superadmin": false
-  }
-},
-{
-  "model": "accounts.account",
-  "pk": 24,
-  "fields": {
-    "password": "pbkdf2_sha256$260000$A5CYZfMnhKf2U11CJELArP$kAop26mRlCQXTC156YL75KiBqUD/nkEyPiBe+/2RD9Y=",
-    "first_name": "Vegeta",
     "last_name": "Sayan",
-    "username": "vegeta",
-    "email": "vegeta@super.com",
-    "phone_number": "55787459952",
-    "date_joined": "2022-04-09T18:31:08.722Z",
-    "last_login": "2022-04-10T03:30:57.854Z",
-    "is_admin": false,
-    "is_staff": false,
-    "is_active": true,
-    "is_superadmin": false
-  }
-},
-{
-  "model": "accounts.account",
-  "pk": 25,
-  "fields": {
-    "password": "pbkdf2_sha256$260000$sj2RcUfVZHLSLzkrZPlJvn$d/g8s2LkCn2xlqA2lRmoKmIngThJ6A8KQylQYqk3/ao=",
-    "first_name": "yisel",
-    "last_name": "Castillo",
-    "username": "castilloyisel",
-    "email": "castilloyisel@gmail.com",
-    "phone_number": "809-766-9952",
-    "date_joined": "2022-04-09T21:59:22.779Z",
-    "last_login": "2022-04-09T22:04:23.685Z",
+    "username": "test",
+    "email": "test@test.com",
+    "phone_number": "456879",
+    "date_joined": "2022-04-19T20:55:13.022Z",
+    "last_login": "2022-04-19T20:55:33.478Z",
     "is_admin": false,
     "is_staff": false,
     "is_active": true,
@@ -372,25 +300,12 @@
 },
 {
   "model": "accounts.userprofile",
-  "pk": 2,
+  "pk": 4,
   "fields": {
-    "user": 24,
+    "user": 26,
     "address_line_1": "",
     "address_line_2": "",
-    "profile_picture": "user_profile/vegeta_89DVfcM.jpg",
-    "city": "",
-    "state": "",
-    "country": ""
-  }
-},
-{
-  "model": "accounts.userprofile",
-  "pk": 3,
-  "fields": {
-    "user": 25,
-    "address_line_1": "",
-    "address_line_2": "",
-    "profile_picture": "user_profile/bat_QpoCIak.jpg",
+    "profile_picture": "default/default-image-profile-user.jpg",
     "city": "",
     "state": "",
     "country": ""
@@ -528,7 +443,7 @@
   "model": "store.product",
   "pk": 9,
   "fields": {
-    "product_name": "Pantalones cÃ³modos",
+    "product_name": "Pantalones cómodos",
     "slug": "pantalones-comodos",
     "description": "when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,  when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
     "price": 50,
@@ -656,7 +571,7 @@
     "product": 6,
     "user": 1,
     "subject": "Es una muy buena camisa",
-    "review": "La calidad es muy buena y estÃ¡ a buen precio.",
+    "review": "La calidad es muy buena y está a buen precio.",
     "rating": 5.0,
     "ip": "127.0.0.1",
     "status": true,
@@ -729,6 +644,14 @@
   }
 },
 {
+  "model": "carts.cart",
+  "pk": 30,
+  "fields": {
+    "cart_id": "1d6zngt0tlkqupl51kutfxnw3j0jbjop",
+    "date_added": "2022-04-19"
+  }
+},
+{
   "model": "carts.cartitem",
   "pk": 119,
   "fields": {
@@ -737,6 +660,7 @@
     "cart": 22,
     "quantity": 1,
     "is_active": true,
+    "created_at": "2022-04-19T20:38:27.665Z",
     "variations": [
       8,
       12
@@ -752,6 +676,7 @@
     "cart": 24,
     "quantity": 1,
     "is_active": true,
+    "created_at": "2022-04-19T20:38:27.665Z",
     "variations": [
       8,
       12
@@ -767,6 +692,7 @@
     "cart": 26,
     "quantity": 1,
     "is_active": true,
+    "created_at": "2022-04-19T20:38:27.665Z",
     "variations": [
       8,
       12
@@ -782,6 +708,88 @@
     "cart": 29,
     "quantity": 1,
     "is_active": true,
+    "created_at": "2022-04-19T20:38:27.665Z",
+    "variations": []
+  }
+},
+{
+  "model": "carts.cartitem",
+  "pk": 146,
+  "fields": {
+    "user": 1,
+    "product": 11,
+    "cart": null,
+    "quantity": 23,
+    "is_active": true,
+    "created_at": "2022-04-19T20:38:27.665Z",
+    "variations": []
+  }
+},
+{
+  "model": "carts.cartitem",
+  "pk": 147,
+  "fields": {
+    "user": 1,
+    "product": 10,
+    "cart": null,
+    "quantity": 18,
+    "is_active": true,
+    "created_at": "2022-04-19T20:38:27.665Z",
+    "variations": []
+  }
+},
+{
+  "model": "carts.cartitem",
+  "pk": 148,
+  "fields": {
+    "user": 1,
+    "product": 6,
+    "cart": null,
+    "quantity": 16,
+    "is_active": true,
+    "created_at": "2022-04-19T20:38:27.665Z",
+    "variations": [
+      8,
+      12
+    ]
+  }
+},
+{
+  "model": "carts.cartitem",
+  "pk": 154,
+  "fields": {
+    "user": null,
+    "product": 11,
+    "cart": 30,
+    "quantity": 1,
+    "is_active": true,
+    "created_at": "2022-04-19T20:46:03.367Z",
+    "variations": []
+  }
+},
+{
+  "model": "carts.cartitem",
+  "pk": 155,
+  "fields": {
+    "user": null,
+    "product": 8,
+    "cart": 30,
+    "quantity": 1,
+    "is_active": true,
+    "created_at": "2022-04-19T20:46:06.797Z",
+    "variations": []
+  }
+},
+{
+  "model": "carts.cartitem",
+  "pk": 156,
+  "fields": {
+    "user": null,
+    "product": 2,
+    "cart": 30,
+    "quantity": 1,
+    "is_active": true,
+    "created_at": "2022-04-19T20:46:10.459Z",
     "variations": []
   }
 },
@@ -795,18 +803,6 @@
     "amount_paid": "91.8",
     "status": "COMPLETED",
     "creat_at": "2022-04-07T15:17:14.943Z"
-  }
-},
-{
-  "model": "orders.payment",
-  "pk": 24,
-  "fields": {
-    "user": 25,
-    "payment_id": "2XY3462558183192L",
-    "payment_method": "Paypal",
-    "amount_paid": "91.8",
-    "status": "COMPLETED",
-    "creat_at": "2022-04-09T22:02:44.318Z"
   }
 },
 {
@@ -846,9 +842,9 @@
     "email": "g@super.com",
     "address_line_1": "Casa Kame house",
     "address_line_2": "#58",
-    "state": "DragÃ³n",
+    "state": "Dragón",
     "city": "Capsula",
-    "country": "UniÃ³n",
+    "country": "Unión",
     "order_note": "Esta es la orden de Goku",
     "order_total": 91.8,
     "tax": 1.8,
@@ -863,8 +859,8 @@
   "model": "orders.order",
   "pk": 108,
   "fields": {
-    "user": 25,
-    "payment": 24,
+    "user": null,
+    "payment": null,
     "order_number": "20220409108",
     "first_name": "yisel",
     "last_name": "Castillo",
@@ -953,25 +949,6 @@
     "variation": [
       8,
       12
-    ]
-  }
-},
-{
-  "model": "orders.orderproduct",
-  "pk": 21,
-  "fields": {
-    "order": 108,
-    "payment": 24,
-    "user": 25,
-    "product": 6,
-    "quantity": 1,
-    "product_price": 90.0,
-    "ordered": true,
-    "created_at": "2022-04-09T22:02:44.371Z",
-    "updated_at": "2022-04-09T22:02:44.406Z",
-    "variation": [
-      8,
-      13
     ]
   }
 },
