@@ -83,8 +83,8 @@
   "model": "sessions.session",
   "pk": "fnp6hhc2lq4nxbujw42kaxovk5vi3ykb",
   "fields": {
-    "session_data": ".eJxVjcsOwiAURP-FtSE8Cly6dO83EB63FrVgCl0Z_12bdNPtnDMzH-IatpZrcbnk7npesHW_vB0ZuVZsYBwso9xoayxciPNbn93WcHU5kZFwcsqCj08sO0gPX-6Vxlr6mgPdFXrQRm814et6uKeB2bf535YSZIh6sporzpjY3wUYNSVphAGJyQsBAXUKoK2YQmSDtIheSwSFA_n-ANtFRZE:1nguvK:d0feSoZJXZOYKnWrO56CIKL5_NeAexiN53RKQNKdc2s",
-    "expire_date": "2022-05-03T20:58:10.213Z"
+    "session_data": ".eJxVjMEOwiAQBf-FsyF0gQV69O43EChbi1pqCj0Z_12b9NLrm5n3Yb5SrXkpPpfcfMsz1Rbmt2d9h1ooAcogR7BWabgwH7Y2-a3S6nNiPevYaYtheFLZQXqEcl_4sJS25sh3hR-08tuS6HU93NPBFOr0r6W0Mg44Oux0JwSgMw6s0WOSBoyVlAKAjYQpWnQwxkEo6YgCSrKaFPv-ANPiRYY:1ngv4m:qjryPEdKvSSQmKUa0o56iAwoT8oJBBkVW3w53TPL_Eo",
+    "expire_date": "2022-05-03T21:07:56.637Z"
   }
 },
 {
@@ -214,7 +214,7 @@
   "pk": 2,
   "fields": {
     "category_name": "Ropa de verano",
-    "description": "Ropa de verano en promoción",
+    "description": "Ropa de verano en promociÃ³n",
     "slug": "ropa-de-verano",
     "category_image": "photos/categories/900.jpg"
   }
@@ -223,8 +223,8 @@
   "model": "category.category",
   "pk": 3,
   "fields": {
-    "category_name": "Música y Media",
-    "description": "Artefactos de música moderna",
+    "category_name": "MÃºsica y Media",
+    "description": "Artefactos de mÃºsica moderna",
     "slug": "musica-y-media",
     "category_image": "photos/categories/400.jpg"
   }
@@ -443,7 +443,7 @@
   "model": "store.product",
   "pk": 9,
   "fields": {
-    "product_name": "Pantalones cómodos",
+    "product_name": "Pantalones cÃ³modos",
     "slug": "pantalones-comodos",
     "description": "when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,  when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
     "price": 50,
@@ -571,7 +571,7 @@
     "product": 6,
     "user": 1,
     "subject": "Es una muy buena camisa",
-    "review": "La calidad es muy buena y está a buen precio.",
+    "review": "La calidad es muy buena y estÃ¡ a buen precio.",
     "rating": 5.0,
     "ip": "127.0.0.1",
     "status": true,
@@ -842,9 +842,9 @@
     "email": "g@super.com",
     "address_line_1": "Casa Kame house",
     "address_line_2": "#58",
-    "state": "Dragón",
+    "state": "DragÃ³n",
     "city": "Capsula",
-    "country": "Unión",
+    "country": "UniÃ³n",
     "order_note": "Esta es la orden de Goku",
     "order_total": 91.8,
     "tax": 1.8,
