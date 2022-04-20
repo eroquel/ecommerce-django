@@ -205,7 +205,7 @@ def cart(request, total = 0, quantity = 0, cart_items = None): #Esta funcion se 
     grand_total = 0
     try:#Intenta comprobar si todo en este try devuelve True
         if request.user.is_authenticated: #Si el usuario está atenticado, es decir, si el usuario inició sesión...
-            cart_items = CartItem.objects.filter(user = request.user, is_active = True)
+            cart_items = CartItem.objects.order_by('-created_at').filter(user = request.user, is_active = True)
         else:
             cart = Cart.objects.get(cart_id = _cart_id(request)) #Extrae dentro de Cart un Cart_id igual al comprobado en la función _cart_id().
             cart_items = CartItem.objects.order_by('-created_at').filter(cart = cart, is_active = True) #Busca dentro de CartItem un cart igual al **cart comprobado en la linea anterior** y que esté activo.

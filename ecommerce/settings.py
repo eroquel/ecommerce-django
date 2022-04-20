@@ -174,15 +174,15 @@ MEDIA_ROOT = BASE_DIR /'media'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 from django.contrib.messages import constants as messages 
 MESSAGE_TAGS = {
     messages.ERROR : 'danger', # Aquí indico que el tag error ahora será danger, ya que este último es el que usa bootstrap CSS.
 }
-if heroku_database_url:
 
+
+if heroku_database_url:
     EMAIL_HOST = config('EMAIL_HOST', default='localhost')
     EMAIL_PORT = config('EMAIL_PORT', default=25, cast=int)
     EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
@@ -191,7 +191,6 @@ if heroku_database_url:
 else:
     EMAIL_BACKEND = "naomi.mail.backends.naomi.NaomiBackend"
     EMAIL_FILE_PATH = BASE_DIR /"templates/accounts/tmp"
-
 
 
 # Default primary key field type
