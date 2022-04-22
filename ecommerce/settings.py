@@ -159,20 +159,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR /'static'
+STATIC_URL = 'static/' #Esto es un prefijo que se colocará al inicio de la ruta de cada archivo statico
+STATIC_ROOT = BASE_DIR /'static' #En esta ruta es donde Dejango extrara y colocará todos mis static file de mis app cuando use el comando: **python manage.py collectstatic**
 
 #if not DEBUG: #Esto evita el error: django The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting
 #    STATIC_ROOT =''
 
-STATICFILES_DIRS = [
+STATICFILES_DIRS = [ #En esta lista es le digo a Django, que tengo una carpeta **static** dentro de una app, en este caso es dentro de la carpeta principal del proyecto, si tuviera otras carpetas **static** en otras aplicaciones, las tendría que agregar a esta lista.
     'ecommerce/static'
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+MEDIA_URL = '/static/media/' #Esto es un prefijo que se colocará al inicio de la ruta de cada archivo statico
+MEDIA_ROOT = BASE_DIR /'static/media' #Donde se almacenará los archivos Media
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
