@@ -159,7 +159,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = 'static/' #Esto es un prefijo que se colocará al inicio de la ruta de cada archivo statico
+STATIC_URL = '/static/' #Esto es un prefijo que se colocará al inicio de la ruta de cada archivo statico
 STATIC_ROOT = BASE_DIR /'static' #En esta ruta es donde Dejango extrara y colocará todos mis static file de mis app cuando use el comando: **python manage.py collectstatic**
 
 #if not DEBUG: #Esto evita el error: django The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting
