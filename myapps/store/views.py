@@ -92,10 +92,16 @@ def submit_review(request, product_id):
     if request.method == 'POST':
         try: #Este Try es para acutalizar un review existen.
             reviews = ReviewRating.objects.get(user__id = request.user.id, product__id = product_id)# aquí se verifica si existe en **ReviewForm** un registro con un con el user_id  del usuario y un product_id del producto de donde se hace el review.
+           
             form = ReviewForm(request.POST, instance=reviews)# Aquí se reemplaza el registro anterior por el nuevo que se manda por POST. Los campos del formulario que el usuario mandan al hacer un reviews, debe hacer un Match on lo descrito en ReviewForm, es decir, los nombres de los campos del formulario deben ser los mismos descritos den ReviewForm y de esta manera se captura la información y se almacena en la variable **form**
-            form.save()
-            messages.success(request, 'Gracias!, tu comentario ha sido actualizado')
-            return redirect(url)
+            if form.is_valid(): 
+                form.save()
+                messages.success(request, 'Gracias!, tu comentario ha sido actualizado')
+                return redirect(url)
+            else:
+                messages.error(request, 'Debes llenar todos los campos para actualizar tu comentario')
+                return redirect(url)
+
         except ReviewRating.DoesNotExist: #el except es para agregar un Review nuevo
             form = ReviewForm(request.POST)
             if form.is_valid():
