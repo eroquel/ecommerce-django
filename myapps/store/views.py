@@ -109,5 +109,8 @@ def submit_review(request, product_id):
                 data.save()
                 messages.success(request, 'Muchas gracias, tu comentario ha sido enviado con éxito!')
                 return redirect(url)
+            else:
+                messages.error(request, 'Debes llenar todos los campos para hacer el comentario')
+                return redirect(url)
 
 

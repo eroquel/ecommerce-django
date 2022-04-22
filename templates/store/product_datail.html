@@ -1,7 +1,7 @@
   {% extends 'base.html' %}
 
   {% block content %}
-
+  {% include 'includes/alerts.html' %}
   <section class="section-content padding-y bg">
       <div class="container">
       
@@ -102,7 +102,17 @@
             {% csrf_token %}
 
             <h5>Escribe tu comentario</h5>
-            {{ single_product.averageReview }}
+
+            {% if  single_product.averageReview%}
+                {{ single_product.averageReview }}
+
+            {% else %}
+
+            <p> Sé el primero en califacrar este prodcuto!</p>
+
+            {% endif %}
+
+            
             <div class="">
                 <label for="">¿Como calificarias este producto?</label>
                 <br>
@@ -119,7 +129,7 @@
                     <input type="radio" name="rating" value="0.5" id="rating1"><label for="rating1" title="0.5" class="half"></label>
                 </div>
 
-                <h6>Título de comentario:</h6>
+                <h6>Título del comentario:</h6>
                 <input type="text" class="form-control" name="subject" value="">
                 <br>
                 Comentario
@@ -141,10 +151,11 @@
                 {% endif %}
             </div>
 
-            {% include 'includes/alerts.html' %}
+            
 
           </form>
 
+          {% if  single_product.averageReview%}
           <header class="section-heading">
             <h3>Calificación de clientes </h3>  
         
@@ -158,7 +169,8 @@
                 </span>
             </div>
         </header>
-
+    
+        {% endif %}
           {% for review in reviews  %}
           <article class="box mb-3">
               <div class="icontext w-100">
