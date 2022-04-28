@@ -10,6 +10,7 @@ django-admin-logs==1.0.2
 django-naomi==0.8
 django-ses==3.0.1
 django-session-timeout==0.1.0
+django-storages==1.12.3
 gunicorn==20.1.0
 idna==3.3
 jmespath==1.0.0
