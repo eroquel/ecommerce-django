@@ -19,3 +19,19 @@
 	</div><!-- //container -->
 </footer>
 <!-- ========================= FOOTER END // ========================= -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<script type="text/javascript" >
+	$(document).ready(function(){   /*(document).ready(function()) dice, ejecunta la funcion luego de que la página carge*/
+		$('.thumb a').click(function(e){ /*Cuando se haga clic en .thumb a*/
+			e.preventDefault(); /*No se va acualizar la página*/
+			$('.mainImage img').attr('src', $(this).attr('href')); /*cuando se haga click en el "a" a la imagen en .mainImage se le cambiaré el **src** por el "href" del "a"*/
+		})
+	})
+</script>
+
+</body>
+
+</html>
+

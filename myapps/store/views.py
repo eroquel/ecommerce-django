@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, render, redirect
 
-from .models import Product, ReviewRating
+from .models import Product, ProductGallery, ReviewRating
 from ..category.models import Category
 from ..carts.models import CartItem
 from ..carts.views import _cart_id
@@ -45,7 +45,6 @@ def product_detail(request, category_slug, product_slug):
 
         , product = single_product) también verifica si product si dentro de CartItem en el atributo **product** el cual es otra llave foránea, si existe un producto 
         Igual a single_product, si ambos son verdadero con el **exists()** devuelve un True.
-
         """
         in_cart =  CartItem.objects.filter(cart__cart_id = _cart_id(request), product = single_product).exists()
     except Exception as e:
@@ -63,11 +62,14 @@ def product_detail(request, category_slug, product_slug):
 
     reviews = ReviewRating.objects.filter(product_id = single_product.id, status = True) #aquí estoy guardando en la variable **reviews** todos los reviews del producto actual.
 
+    product_gallery = ProductGallery.objects.filter(product_id=single_product.id)
+
     context ={
         'single_product': single_product,
         'in_cart': in_cart,
         'orderedproduct': orderedproduct,
         'reviews': reviews,
+        'product_gallery': product_gallery
     }
   
     return render(request, 'store/product_datail.html', context)
